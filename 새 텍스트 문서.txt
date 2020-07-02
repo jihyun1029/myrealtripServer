@@ -1,0 +1,116 @@
+///// 프로젝트 서버로 열기
+Express.js
+
+// git bash 에서 작성
+npm install -g express-generator
+: npm (node package manager)
+: -g (global)
+
+새 폴더(200201) 안에 express --no-view
+: express 프로젝트 생성
+
+// vscode
+package.json > scripts > start 
+start 는 실행을 하는 구문
+"start": "node ./bin/www"
+- node 명령어
+node 뒤에 있는 파일을 실행하겠다는 의미
+
+
+// bin/www 로 이동
+nomalizePort
+port : 하나의 연결 통로
+var port = nomalizePort(process.env.PORT || '3000');
+
+node.js(JavaScript 를 실행할 수 있는 환경) 의 환경설정 
+>  process(정형화된 하나의 실행흐름)
+: node.js 환경에서 실행되는 하나의 흐름 (흐름에 대한 모든 데이터를 다 가지고 있음)
+process 에서의 환경설정을 가져오는 것 : env (enviornment : 환경)
+enviorment 에는 port 가 없음 / 사용자가 마음대로 데이터 삽입 가능 
+process.env.port 에 값이 없으면 undefined 가 나옴 
+undefined, null 이 나오면 제대로 실행되지 않기 때문에 
+process.env.port 가 아닌 ||(또는)에 있는 3000 을 넣는다.
+
+// 3000 으로 설정한 이유 
+port 를 0000 ~ 65523 까지 사용할 수 있게 만들어 놓음
+일반적으로 서버 프로그래밍을 할 때 사용하는 것이 3000
+- 3000 vs 3001 
+3000과 3001은 완전 다르다.
+
+/// www 파일 이어서 보기 
+var server = http.createServer(app);
+createServer : 서버 만든다 
+app 을 기준으로 서버를 생성함
+
+server.listen(port);
+3000 port 로 응답이 오면, 
+3000 port 로 들어오는 것을 들어라.
+
+server.on('error', onError);
+'error' 가 나오면 onError 함수를 호출
+반응하라.
+
+server.on('listening', onListening);
+'listening' 이 나오면 onListening 함수를 호출
+반응하라.
+
+www = express 서버를 띄우는데 도움을 주는 파일.
+이 파일을 실행하면 서버가 실행됨
+
+
+
+///// app.js
+var express = require('express');
+express : node.js 를 더 편하게 사용하는 모듈
+require : react 에서 import 로 모듈 불러오는 것 처럼 require 로 불러오는 것
+
+var path
+파일 경로를 불러올 때 도움
+
+var indexRouter
+index 공유해주는 사람
+- './routes/index' 
+
+app.use('/', indexRouter);
+indexRouter 를 사용한다.
+> 공유기와 컴퓨터(indexRouter)를 연결해줌
+
+
+var usersRouter
+users 공유해주는 사람
+
+app.use(시작경로, 
+
+
+// postman
++ > get 창 > localhost:3000/ > send 클릭
+
+// 크롬
+localhost:3000 복붙
+> Welcome to Express 나오게 됨
+
+// routes/index.js
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
+});
+
+router.get(경로, 함수)
+함수의 parameter
+req : request ( 사용자가 요청했을 때의 데이터 )
+res : response ( 사용자가 다시 받을 수 있게 도와줌 / 사용자 측면에서 데이터 반환 )
+next : 다음 실행 할 함수 ( 잘 사용하지 않음 )
+req, res 는 고정된 것 아님. 변경가능
+
+res.render('index', { title: 'Express' });
+index : public/index.html 을 불러오겠다.
+{ title: 'Express' } : html 에 데이터를 주입하겠다.
+>> 크롬에 localhost:3000 으로 이동해서 나온 html 이 public/index.html 
+
+
+// 마이리얼트립 프로젝트 열기
+서버에서 파일을 사용할 수 있도록 build 생성
+> npm run build
+
+>> express 프로젝트에서 public 폴더 안에 있는 모든 파일 삭제
+>> public 폴더 안에 마이리얼트립 build 폴더 안 파일들 복붙
+>> npm run start 다시 실행 
